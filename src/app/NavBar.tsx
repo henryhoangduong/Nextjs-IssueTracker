@@ -4,9 +4,9 @@ import Link from "next/link";
 import { FaBug } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import classNames from "classnames";
+
 const NavBar = () => {
   const currentPath = usePathname();
-  console.log(currentPath);
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
@@ -27,7 +27,6 @@ const NavBar = () => {
                 "text-zinc-500": item.href !== currentPath,
                 "hover:text-zinc-800 transition-colors": true,
               })}
-              // className={ `${item.href == currentPath ? "text-zinc-900":"text-zinc-500"}  hover:text-zinc-800 transition-colors`}
             >
               {item.label}
             </Link>
