@@ -6,7 +6,8 @@ import "@radix-ui/themes/styles.css";
 import NavBar from "./NavBar";
 import { Theme, ThemePanel } from "@radix-ui/themes";
 import { Inter } from "next/font/google";
-
+import QueryClientProvider from "./issues/QueryClientProvider";
+import AuthProvider from "./auth/Provider";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--front-inter",
@@ -36,11 +37,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Theme>
-          <NavBar />
-          <main className="p-5 ">{children}</main>
-          <ThemePanel />
-        </Theme>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme>
+              <NavBar />
+              <main className="p-5 ">{children}</main>
+              <ThemePanel />
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
