@@ -1,5 +1,5 @@
 "use client";
-import { TextField, Button, Text } from "@radix-ui/themes";
+import { TextField, Button, Text, Spinner } from "@radix-ui/themes";
 import React, { useState } from "react";
 import SimpleMdeReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
@@ -25,6 +25,7 @@ const NewIssuePage = () => {
   } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
   });
+  const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   return (
     <div className="max-w-xl">
@@ -37,10 +38,13 @@ const NewIssuePage = () => {
         className="max-w-xl space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitting(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
             setError("An unxpected error occurred");
+          } finally {
+            setSubmitting(false);
           }
         })}
       >
@@ -58,7 +62,7 @@ const NewIssuePage = () => {
         )}
 
         {/* <SimpleMdeReact  placeholder="Description" */}
-        <Button>Submit New Issue</Button>
+        <Button>Submit New Issue {isSubmitting && <Spinner />}</Button>
       </form>
     </div>
   );
