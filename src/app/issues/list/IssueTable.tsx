@@ -83,4 +83,7 @@ const columns: {
     className: "hidden md:table-cell",
   },
 ];
+
+export const columnNames = columns.map((column) => column.value);
+
 export default IssueTable;

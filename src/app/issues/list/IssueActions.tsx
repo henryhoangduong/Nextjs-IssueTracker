@@ -14,4 +14,4 @@ const IssueActions = () => {
   );
 };
 
-export default IssueActions
+export default IssueActions;
