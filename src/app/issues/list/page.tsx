@@ -4,29 +4,27 @@ import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { cache } from "react";
-
+import { Status } from "@prisma/client";
+import { IssueQuery } from "./IssueTable";
+import { Metadata } from "next";
 interface Props {
-  params: { id: string };
+  searchParams: IssueQuery;
 }
 
-const fetchUser = cache((issueId: number) =>
-  prisma.issue.findUnique({ where: { id: issueId } }),
-);
+const IssuePage = async ({ searchParams }: Props) => {
+  const statuses = Object.values(Status);
+  const status = statuses.includes(searchParams.status)
+    ? searchParams.status
+    : undefined;
 
-const IssuePage = async ({ params }: Props) => {
-  const issue = await fetchUser(parseInt(params.id));
-
-  if (!issue) notFound();
   return <div>page</div>;
 };
 
-export async function generateMetadata({ params }: Props) {
-  const issue = await fetchUser(parseInt(params.id));
+export const dynamic = 'force-dynamic';
 
-  return {
-    title: issue?.title,
-    description: "Details of issue " + issue?.id,
-  };
-}
+export const metadata: Metadata = {
+  title: 'Issue Tracker - Issue List',
+  description: 'View all project issues'
+};
 
 export default IssuePage;
