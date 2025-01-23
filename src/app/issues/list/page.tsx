@@ -1,9 +1,7 @@
 import React from "react";
 import prisma from "../../../../prisma/client";
-import { Box, Flex, Grid } from "@radix-ui/themes";
-import { notFound } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { cache } from "react";
+import { Flex } from "@radix-ui/themes";
+
 import { Status } from "@prisma/client";
 import { IssueQuery, columnNames } from "./IssueTable";
 import { Metadata } from "next";
